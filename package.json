@@ -2,13 +2,11 @@
   "name": "kekstagram",
   "version": "31.0.0",
   "private": true,
-  "description": "Личный проект «{{projectTitle}}» от HTML Academy",
+  "description": "Личный проект «Kekstagram» от HTML Academy",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "{{sshUrl}}"
-  },
-  "bugs": {
-    "url": "{{bugsUrl}}"
   },
   "devDependencies": {
     "eslint": "8.48.0",
