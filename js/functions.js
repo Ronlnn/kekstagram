@@ -1,5 +1,10 @@
 export const checkStringLength = (str, maxLength) => str.length <= maxLength;
 
+console.log('checkStringLength:');
+console.log(checkStringLength('Привет, мир!', 10));
+console.log(checkStringLength('проверяемая строка', 20));
+console.log(checkStringLength('проверяемая строка', 18));
+
 export const checkStringPalindrome = (str) => {
   const normalizedStr = str.replaceAll(' ', '').toLowerCase();
   let result = '';
