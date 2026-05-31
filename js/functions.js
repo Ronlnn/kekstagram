@@ -28,6 +28,14 @@ export const getNumberFromString = (str) => {
   }
   return parseInt(result, 10);
 };
+
+export const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
 console.log('getNumberFromString:');
 console.log(getNumberFromString('2023 год'));
 console.log(getNumberFromString('ECMAScript 2022'));
