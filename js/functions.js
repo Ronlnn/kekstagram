@@ -1,10 +1,5 @@
 export const checkStringLength = (str, maxLength) => str.length <= maxLength;
 
-console.log('checkStringLength:');
-console.log(checkStringLength('Привет, мир!', 10));
-console.log(checkStringLength('проверяемая строка', 20));
-console.log(checkStringLength('проверяемая строка', 18));
-
 export const checkStringPalindrome = (str) => {
   const normalizedStr = str.replaceAll(' ', '').toLowerCase();
   let result = '';
@@ -13,8 +8,6 @@ export const checkStringPalindrome = (str) => {
   }
   return normalizedStr === result;
 };
-console.log('checkStringPalindrome:');
-console.log(checkStringPalindrome('Лёша на полке клопа нашёл '));
 
 export const getNumberFromString = (str) => {
   let result = '';
@@ -36,12 +29,24 @@ export const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-console.log('getNumberFromString:');
-console.log(getNumberFromString('2023 год'));
-console.log(getNumberFromString('ECMAScript 2022'));
-console.log(getNumberFromString('1 кефир, 0.5 батона'));
-console.log(getNumberFromString('агент 007'));
-console.log(getNumberFromString('а я томат'));
-console.log(getNumberFromString(2023));
-console.log(getNumberFromString(-1));
-console.log(getNumberFromString(1.5));
+const timeToMinutes = (time) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+export const isMeetingInWorkDay = (
+  workStart,
+  workEnd,
+  meetingStart,
+  meetingDuration,
+) => {
+  const workStartMinutes = timeToMinutes(workStart);
+  const workEndMinutes = timeToMinutes(workEnd);
+  const meetingStartMinutes = timeToMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return (
+    meetingStartMinutes >= workStartMinutes &&
+    meetingEndMinutes <= workEndMinutes
+  );
+};
