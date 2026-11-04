@@ -1,5 +1,5 @@
 import { getRandomInteger } from './utils.js';
-import { names, descriptions, messages } from './data.js';
+import { names, descriptions, messages } from './picturesData.js';
 
 const generateMessages = () => {
   const messageCount = getRandomInteger(1, 2);
@@ -11,7 +11,7 @@ const generateMessages = () => {
   return result;
 };
 
-const generatePhotoDescription = (id) => {
+const generatePictureDescription = (id) => {
   const url = `photos/${id}.jpg`;
   const description =
     descriptions[getRandomInteger(0, descriptions.length - 1)];
@@ -36,8 +36,8 @@ const generatePhotoDescription = (id) => {
   };
 };
 
-export const generatePhotos = () =>
-  Array.from({ length: 25 }, (_, i) => generatePhotoDescription(i + 1));
+export const generatePicturesData = () =>
+  Array.from({ length: 25 }, (_, i) => generatePictureDescription(i + 1));
 
-//console.log(JSON.stringify(generatePhotos(), null, 2));
-//console.log(JSON.stringify(generatePhotos()[0].comments, null, 2));
+//console.log(JSON.stringify(generatePicturesData(), null, 2));
+//console.log(JSON.stringify(generatePicturesData()[0].comments, null, 2));
