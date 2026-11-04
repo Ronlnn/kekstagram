@@ -1,1 +1,3 @@
-import { generatePhotos } from "./generateData";
+import { generatePhotos } from './generateData.js';
+
+generatePhotos();
