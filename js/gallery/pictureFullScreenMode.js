@@ -1,4 +1,5 @@
 import { isEscKey } from '../utils.js';
+
 const pictureCardModal = document.querySelector('.big-picture');
 const pictureCardImage = pictureCardModal.querySelector(
   '.big-picture__img img',
@@ -20,24 +21,20 @@ const closeFullScreenModeButton = pictureCardModal.querySelector(
 );
 const COMMENT_AVATAR_WIDTH = 35;
 const COMMENT_AVATAR_HEIGHT = 35;
+const COMMENT_PER_PAGE = 5;
 
 export const pictureFullScreenMode = (data) => {
+  let currentPicture = null;
+  let shownCommentCount = 0;
+
   function onEscKeydown(e) {
     if (isEscKey(e)) {
       e.preventDefault();
       closeFullScreenMode();
     }
   }
-  function closeFullScreenMode() {
-    pictureCardModal.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-    //Чистим события
-    closeFullScreenModeButton.removeEventListener('click', closeFullScreenMode);
-    document.removeEventListener('keydown', onEscKeydown);
-    //Заново добавляем событие открытия
-    pictures.addEventListener('click', openFullScreenMode);
-  }
-  function openFullScreenMode(e) {
+
+  function onPictureClick(e) {
     const picture = e.target.closest('.picture');
     if (!picture) {
       return;
@@ -49,14 +46,36 @@ export const pictureFullScreenMode = (data) => {
     if (!pictureData) {
       return;
     }
+    openFullScreenMode(pictureData);
+  }
+
+  function closeFullScreenMode() {
+    pictureCardModal.classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
+
+    closeFullScreenModeButton.removeEventListener('click', closeFullScreenMode);
+    document.removeEventListener('keydown', onEscKeydown);
+    commentLoader.removeEventListener('click', showNextComments);
+
+    pictures.addEventListener('click', onPictureClick);
+  }
+
+  function openFullScreenMode(pictureData) {
+    currentPicture = pictureData;
+    shownCommentCount = 0;
+    commentList.replaceChildren();
     pictureCardModal.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
+    commentCounter.classList.remove('hidden');
+    //Слушатели
     document.addEventListener('keydown', onEscKeydown);
     closeFullScreenModeButton.addEventListener('click', closeFullScreenMode);
+    commentLoader.addEventListener('click', showNextComments);
     //Чистим события
-    pictures.removeEventListener('click', openFullScreenMode);
+    pictures.removeEventListener('click', onPictureClick);
 
     renderFullScreenPicture(pictureData);
+    showNextComments();
   }
 
   function renderFullScreenPicture(pictureData) {
@@ -65,19 +84,30 @@ export const pictureFullScreenMode = (data) => {
     pictureLikesCount.textContent = pictureData.likes;
     commentTotalCount.textContent = pictureData.comments.length;
     pictureCardModal.classList.remove('hidden');
+  }
 
-    renderCommentList(pictureData.comments);
+  function showNextComments() {
+    if (!currentPicture) {
+      return;
+    }
 
-    //Скрываем счетчик комментов и кнопку загрузки комментов, доделаем в след модуле
-    commentLoader.classList.add('hidden');
-    commentCounter.classList.add('hidden');
-    //Пока рендерим все комментарии, доделаем в след модуле
-    commentShownCount.textContent = 12;
+    const nextComments = currentPicture.comments.slice(
+      shownCommentCount,
+      shownCommentCount + COMMENT_PER_PAGE,
+    );
+
+    renderCommentList(nextComments);
+
+    shownCommentCount += nextComments.length;
+    commentShownCount.textContent = shownCommentCount;
+
+    const allCommentsShown =
+      shownCommentCount >= currentPicture.comments.length;
+
+    commentLoader.classList.toggle('hidden', allCommentsShown);
   }
 
   function renderCommentList(comments) {
-    commentList.replaceChildren();
-
     const fragment = document.createDocumentFragment();
 
     comments.forEach((comment) => {
@@ -98,10 +128,8 @@ export const pictureFullScreenMode = (data) => {
       commentElement.append(avatarElement, textElement);
       fragment.appendChild(commentElement);
     });
-
     commentList.appendChild(fragment);
-    commentTotalCount.textContent = comments.length;
   }
 
-  pictures.addEventListener('click', openFullScreenMode);
+  pictures.addEventListener('click', onPictureClick);
 };
