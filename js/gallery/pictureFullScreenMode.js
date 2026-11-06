@@ -67,11 +67,11 @@ export const pictureFullScreenMode = (data) => {
     pictureCardModal.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
     commentCounter.classList.remove('hidden');
-    //Слушатели
+
     document.addEventListener('keydown', onEscKeydown);
     closeFullScreenModeButton.addEventListener('click', closeFullScreenMode);
     commentLoader.addEventListener('click', showNextComments);
-    //Чистим события
+
     pictures.removeEventListener('click', onPictureClick);
 
     renderFullScreenPicture(pictureData);
