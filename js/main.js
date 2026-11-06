@@ -1,6 +1,3 @@
-import { generatePicturesData } from './generatePicturesData.js';
-import { renderPictures } from './renderPictures.js';
+import { gallery } from './gallery/gallery.js';
 
-const picturesData = generatePicturesData();
-
-renderPictures(picturesData);
+gallery();

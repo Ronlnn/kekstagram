@@ -7,7 +7,7 @@ const pictures = document.querySelector('.pictures');
 export const renderPictures = (data) => {
   const fragment = document.createDocumentFragment();
 
-  data.forEach(({ url, description, likes, comments }) => {
+  data.forEach(({ id, url, description, likes, comments }) => {
     const pictureClone = pictureTemplate.cloneNode(true);
     const image = pictureClone.querySelector('.picture__img');
 
@@ -18,6 +18,7 @@ export const renderPictures = (data) => {
     pictureClone.querySelector('.picture__comments').textContent =
       comments.length;
 
+    pictureClone.dataset.photoId = id;
     fragment.appendChild(pictureClone);
   });
   pictures.appendChild(fragment);

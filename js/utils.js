@@ -50,3 +50,8 @@ export const isMeetingInWorkDay = (
     meetingEndMinutes <= workEndMinutes
   );
 };
+
+export const isEscKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export const isFullScreenMode = () =>
+  document.querySelector('body').classList.contains('modal-open');
