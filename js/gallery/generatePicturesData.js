@@ -20,7 +20,7 @@ const generateComment = (id) => ({
   name: names[getRandomInteger(0, names.length - 1)],
 });
 
-export const generatePicturesData = () => {
+const generatePicturesData = () => {
   let commentId = 0;
 
   return Array.from({ length: 25 }, (_, index) => {
@@ -41,3 +41,5 @@ export const generatePicturesData = () => {
     };
   });
 };
+
+export { generatePicturesData };

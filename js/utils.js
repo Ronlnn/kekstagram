@@ -55,3 +55,9 @@ export const isEscKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export const isFullScreenMode = () =>
   document.querySelector('body').classList.contains('modal-open');
+
+export const toggleClass = (element, className = '') => {
+  if (element) {
+    element.classList.toggle(className);
+  }
+};
