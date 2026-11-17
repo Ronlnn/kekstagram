@@ -24,6 +24,7 @@ let currentComments = [];
 
 /**
  * Переключает видимость большой картинки
+ * Зависит от предыдущего состояния
  */
 const toggleModal = () => {
   toggleClass(bigPicture, 'hidden');
