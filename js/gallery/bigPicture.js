@@ -99,6 +99,7 @@ const onLoadButtonClick = () => {
 
 function onEscKeyDown(e) {
   if (isEscKey(e)) {
+    e.preventDefault();
     closeBigPicture();
   }
 }
