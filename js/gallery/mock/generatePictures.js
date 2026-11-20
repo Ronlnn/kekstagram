@@ -1,6 +1,10 @@
-import { getRandomInteger } from '../utils.js';
-import { names, descriptions, messages } from './picturesData.js';
+import { getRandomInteger } from '../../utils.js';
+import { names, descriptions, messages } from './mockData.js';
 
+/**
+ * Составляет случайный комментарий из одного или двух предложений.
+ * @returns {string} Текст комментария.
+ */
 const generateMessage = () => {
   const sentenceCount = getRandomInteger(1, 2);
   const sentences = [];
@@ -13,6 +17,11 @@ const generateMessage = () => {
   return sentences.join(' ');
 };
 
+/**
+ * Создаёт тестовые данные комментария.
+ * @param {number} id - Уникальный идентификатор комментария.
+ * @returns {Object} Данные комментария.
+ */
 const generateComment = (id) => ({
   id,
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
@@ -20,6 +29,10 @@ const generateComment = (id) => ({
   name: names[getRandomInteger(0, names.length - 1)],
 });
 
+/**
+ * Генерирует тестовые фотографии с лайками и комментариями.
+ * @returns {Object[]} Массив данных фотографий.
+ */
 const generatePicturesData = () => {
   let commentId = 0;
 

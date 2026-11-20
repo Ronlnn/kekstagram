@@ -1,3 +1,3 @@
-import { gallery } from './gallery/gallery.js';
+import { initPhotoGallery } from './gallery/gallery.js';
 
-gallery();
+initPhotoGallery();

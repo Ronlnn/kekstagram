@@ -1,9 +1,9 @@
-import { showBigPicture } from './bigPicture.js';
+import { openPhotoDetails } from '../photoDetails/photoDetails.js';
 
 const pictureTemplate = document
   .querySelector('#picture')
   .content.querySelector('.picture');
-const pictures = document.querySelector('.pictures');
+const picturesContainer = document.querySelector('.pictures');
 
 /**
  * Рендерит фото и заполняет все данные из генератора,
@@ -11,7 +11,7 @@ const pictures = document.querySelector('.pictures');
  * @param {Object} data - Данные фото
  * @returns {Element} - Заполненное фото
  */
-const renderPicture = (data) => {
+const createPictureElement = (data) => {
   const { url, description, likes, comments } = data;
   const pictureElement = pictureTemplate.cloneNode(true);
 
@@ -23,7 +23,7 @@ const renderPicture = (data) => {
 
   const onPictureElementClick = (e) => {
     e.preventDefault();
-    showBigPicture(data);
+    openPhotoDetails(data);
   };
   pictureElement.addEventListener('click', onPictureElementClick);
 
@@ -36,9 +36,9 @@ const renderPicture = (data) => {
 const renderPictures = (picturesData) => {
   const fragment = document.createDocumentFragment();
   picturesData.forEach((item) => {
-    fragment.appendChild(renderPicture(item));
+    fragment.appendChild(createPictureElement(item));
   });
-  pictures.appendChild(fragment);
+  picturesContainer.appendChild(fragment);
 };
 
 export { renderPictures };
